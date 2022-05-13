@@ -1,15 +1,14 @@
 package com.example.kotlinflows.data
 
-import com.example.kotlinflows.data.model.Pokemon
-import com.example.kotlinflows.data.model.PokemonModel
-import com.example.kotlinflows.data.model.PokemonProvider
-import com.example.kotlinflows.data.network.PokemonService
+import com.example.kotlinflows.data.model.RickAndMorty
+import com.example.kotlinflows.data.model.RickAndMortyModel
+import com.example.kotlinflows.data.network.RickAndMortyService
 
 class RickAndMortyRepository {
-    private val api = PokemonService()
+    private val api = RickAndMortyService()
 
-    suspend fun getPokemon(): List<Pokemon> {
-        val response: PokemonModel? = api.getPokemon()
+    suspend fun getAll(): List<RickAndMorty> {
+        val response: RickAndMortyModel? = api.getAll()
         return response?.results ?: emptyList()
     }
 }

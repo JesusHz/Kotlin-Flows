@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Kotlin Flows</string>
+    <string name="pokemon_name">Pokemon</string>
+    <string name="characteres_name">Rick</string>
 </resources>

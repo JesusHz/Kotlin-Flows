@@ -15,13 +15,22 @@ fun main(): Unit = runBlocking {
 //        .collect {
 //            println(it)
 //        }
-    val makeFlow = makeFlow()
-        .transform {
-            emit(it * 2)
-        }
-        .collect { number ->
-            println(number)
-        }
+//    val makeFlow = makeFlow()
+//        .transform {
+//            emit(it * 2)
+//        }
+//        .collect { number ->
+//            println(number)
+//        }
+
+//    val flowOne = flowOf("uno", "dos", "tres", "cuatro", "cinco")
+//    val flowTwo = flowOf(1, 2, 3, 4, 5)
+//
+//    flowOne.zip(flowTwo) { one, two ->
+//        println("$one = $two")
+//    }.collect {
+//        it
+//    }
 }
 
 fun makeFlow() = flow {

@@ -1,13 +1,22 @@
 package com.example.kotlinflows.data.model
 
-data class PokemonModel(
-    val count: Long? = 0,
-    val next: String? = null,
-    val previous: String? = null,
-    val results: List<Pokemon>
+data class RickAndMortyModel(
+    val info: Info,
+    val results: List<RickAndMorty>
 )
 
-data class Pokemon(
+data class RickAndMorty(
+    val id: Long? = 0,
     val name: String? = null,
-    val url: String? = null,
+    val species: String? = null,
+    val status: String? = null,
+    val type: String? = null,
+    val gender: String? = null,
+)
+
+data class Info(
+    val count: Long? = 0,
+    val pages: Long? = 0,
+    val next: String? = null,
+    val prev: String? = null,
 )
