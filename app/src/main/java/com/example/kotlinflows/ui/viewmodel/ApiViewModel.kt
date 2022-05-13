@@ -1,6 +1,5 @@
 package com.example.kotlinflows.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,6 +9,9 @@ import com.example.kotlinflows.data.model.Pokemon
 import com.example.kotlinflows.data.model.PokemonProvider
 import com.example.kotlinflows.data.model.RickAndMorty
 import com.example.kotlinflows.data.model.RickAndMortyProvider
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class ApiViewModel: ViewModel() {
@@ -25,11 +27,19 @@ class ApiViewModel: ViewModel() {
     fun onCreatePokemon() {
         viewModelScope.launch {
             isLoading.postValue(true)
-            val result = pokemonRepository.getPokemon()
-            pokemonProvider = result
-            if (!result.isNullOrEmpty()) {
-                pokemonModel.postValue(result.first())
+            flow {
+                while (true) {
+                    val id = random()
+                    val result = pokemonRepository.getPokemon(id)
+                    if (result != null) {
+                        emit(result)
+                    }
+                    delay(2000)
+                }
+            }
+                .collect {
                 isLoading.postValue(false)
+                pokemonModel.postValue(it)
             }
         }
     }
@@ -37,31 +47,23 @@ class ApiViewModel: ViewModel() {
     fun onCreateRickAndMorty() {
         viewModelScope.launch {
             isLoading.postValue(true)
-            val result = rickAndMortyRepository.getAll()
-            rickAndMortyProvider = result
-            if (!result.isNullOrEmpty()) {
-                rickAndMortyModel.postValue(result.first())
+            flow {
+                while (true) {
+                    val id = random()
+                    val result = rickAndMortyRepository.getCharacter(id)
+                    if (result != null) {
+                        emit(result)
+                    }
+                    delay(2000)
+                }
+            }.collect {
                 isLoading.postValue(false)
+                rickAndMortyModel.postValue(it)
             }
         }
     }
 
-    fun pokemonRandom() {
-        isLoading.postValue(true)
-        if (!pokemonProvider.isNullOrEmpty()) {
-            val random = (0..pokemonProvider.size).random()
-            pokemonModel.postValue(pokemonProvider[random])
-            isLoading.postValue(false)
-        }
-    }
-
-    fun rickAndMortyRandom() {
-        isLoading.postValue(true)
-        if (!rickAndMortyProvider.isNullOrEmpty()) {
-            val random = (0..19).random()
-            Log.i("RANDOM", random.toString())
-            rickAndMortyModel.postValue(rickAndMortyProvider[random])
-            isLoading.postValue(false)
-        }
+    private fun random(): Int {
+        return (0..826).random()
     }
 }

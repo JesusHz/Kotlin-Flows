@@ -7,8 +7,7 @@ import com.example.kotlinflows.data.network.RickAndMortyService
 class RickAndMortyRepository {
     private val api = RickAndMortyService()
 
-    suspend fun getAll(): List<RickAndMorty> {
-        val response: RickAndMortyModel? = api.getAll()
-        return response?.results ?: emptyList()
+    suspend fun getCharacter(id: Int): RickAndMorty? {
+        return api.getCharacter(id)
     }
 }

@@ -8,8 +8,7 @@ import com.example.kotlinflows.data.network.PokemonService
 class PokemonRepository {
     private val api = PokemonService()
 
-    suspend fun getPokemon(): List<Pokemon> {
-        val response: PokemonModel? = api.getPokemon()
-        return response?.results ?: emptyList()
+    suspend fun getPokemon(id: Int): Pokemon? {
+        return api.getPokemon(id)
     }
 }

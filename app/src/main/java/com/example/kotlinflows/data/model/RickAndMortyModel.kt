@@ -12,6 +12,7 @@ data class RickAndMorty(
     val status: String? = null,
     val type: String? = null,
     val gender: String? = null,
+    val image: String? = null,
 )
 
 data class Info(
